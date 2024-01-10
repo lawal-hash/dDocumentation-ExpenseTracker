@@ -1,67 +1,56 @@
 import logging
 from typing import Dict, List
+from pydantic import BaseModel, validate_call
 from .expense import Expense
 
 
-class ExpenseDatabase:
+class ExpenseDatabase(BaseModel):
     """
     Manages a collection of Expense objects
     """
-
-    def __init__(self) -> None:
-        self.expenses = []
-
+    expenses : List = []
+    
     def __repr__(self) -> str:
         return "ExpenseDatabase()"
 
     def __len__(self) -> int:
         return len(self.expenses)
 
+    @validate_call
     def add_expense(self, expense: Expense) -> None:
         """Adds an expense to the database.
 
         Args:
             expense (Expense): the expense to add to the database.
         """
-        if isinstance(expense, Expense):
-            self.expenses.append(expense)
-            print(f"{expense} successfully added to ExpenseDatabase")
-        else:
-            logging.error(
-                "TypeError: expense must be an object of class Expense , not %s",
-                type(expense),
-            )
+        self.expenses.append(expense)
+        print(f"{expense} successfully added to ExpenseDatabase")
 
+    @validate_call
     def remove_expense(self, expense_id: str) -> None:
         """Removes an expense from the database.
 
         Args:
             expense_id (str): A unique identifier for an expense.
         """
-        if isinstance(expense_id, str):
-            self.expenses = [
-                expense for expense in self.expenses if expense.id != expense_id
-            ]
-            print(f"Expense ID: {expense_id} successfully removed from ExpenseDatabase")
-        else:
-            logging.error("TypeError: expense_id must be str, not %s", type(expense_id))
+        for expense in self.expenses:
+            if expense.id == expense_id:
+                self.expenses.remove(expense_id)
+                return None
+        print(f"Expense ID: {expense_id} successfully removed from ExpenseDatabase")
 
+    @validate_call
     def get_expense_by_id(self, expense_id: str) -> Expense:
         """Retrieves an expense from the database by its unique identifier.
 
         Args:
             expense_id (str): A unique identifier for an expense.
         """
-        if isinstance(expense_id, str):
-            for expense in self.expenses:
-                if expense.id == expense_id:
-                    return expense
-            logging.error(
-                "Expense ID: %s does not exist in  ExpenseDatabase", expense_id
-            )
-        else:
-            logging.error("TypeError: expense_id must be str, not %s", type(expense_id))
+        for expense in self.expenses:
+            if expense.id == expense_id:
+                return expense
 
+    @validate_call
     def get_expense_by_title(self, expense_title: str) -> List:
         """Retrieves a list of expenses from the database by their title.
 
@@ -71,14 +60,10 @@ class ExpenseDatabase:
         Returns:
             List: A list of expenses with the given title.
         """
-        if isinstance(expense_title, str):
-            return [
+        return [
                 expense for expense in self.expenses if expense.title == expense_title
             ]
-        else:
-            logging.error(
-                "TypeError: expense_title must be str, not %s", type(expense_title)
-            )
+
 
     def to_dict(self) -> List[Dict]:
         """
