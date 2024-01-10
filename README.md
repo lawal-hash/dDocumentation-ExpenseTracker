@@ -22,14 +22,15 @@ Install dependencies
 ## Usage/Examples
 
 ```python
-from expense import Expense
-from expensedb import ExpenseDatabase
+from src.expense import Expense
+from src.expensedb import ExpenseDatabase
 
 
 def main():
-    expense_one = Expense("Spain", 80.00)
-    expense_two = Expense("UK", 180.00)
-    expense_three = Expense("Malaga", 300.00)
+    expense_one = Expense(title="Spain", amount=80.00)
+    expense_two = Expense(title="UK", amount=180.00)
+    expense_three = Expense(title="Malaga", amount=300.00)
+
 
     expense_db = ExpenseDatabase()
 
@@ -48,4 +49,3 @@ python main.py
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
-
