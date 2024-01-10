@@ -10,7 +10,11 @@ python = "^3.9"
 sphinx = "^7.2.6"
 sphinx-rtd-theme = "^2.0.0"
 sphinx-book-theme = "^1.1.0"
+pydantic = "^2.5.3"
 
+
+[tool.poetry.group.dev.dependencies]
+ipykernel = "^6.28.0"
 
 [build-system]
 requires = ["poetry-core"]
