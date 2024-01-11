@@ -1,5 +1,4 @@
 from typing import Dict, Union
-from uuid import uuid4
 from datetime import datetime
 from typing_extensions import Annotated
 from pydantic import BaseModel, UUID4, Field, validate_call
@@ -12,9 +11,9 @@ class Expense(BaseModel):
 
     title: str
     amount: float
-    id: Annotated[UUID4, Field(default_factory=lambda: uuid4().hex, frozen=True)]
-    created_at: Annotated[datetime, Field(default= datetime.utcnow(), frozen=True)]
-    updated_at: Annotated[datetime, Field(default=datetime.utcnow())]
+    id: Annotated[UUID4, Field(frozen=True)]
+    created_at: Annotated[datetime, Field(frozen=True)]
+    updated_at: datetime
 
     def __repr__(self) -> str:
         return f"Expense(title={self.title}, amount={self.amount})"

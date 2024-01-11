@@ -43,10 +43,10 @@ html_theme = 'furo'
 
 # Automatically extract typehints when specified and place them in
 # descriptions of the relevant function/method.
-autodoc_typehints = "description"
+# autodoc_typehints = "description"
 
 # Don't show class signature with the class' name.
-autodoc_class_signature = "separated"
+# autodoc_class_signature = "separated"
 
 autodoc_member_order = 'bysource'
 autodoc_preserve_defaults = True
