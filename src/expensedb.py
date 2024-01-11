@@ -1,14 +1,15 @@
 from typing import Dict, List
-from pydantic import BaseModel, validate_call
+from pydantic import validate_call
 from src.expense import Expense
 
 
-class ExpenseDatabase(BaseModel):
+class ExpenseDatabase:
     """
     Manages a collection of Expense objects
     """
 
-    expenses: List = []
+    def __init__(self) -> None:
+        self.expenses: List = []
 
     def __repr__(self) -> str:
         return "ExpenseDatabase()"
