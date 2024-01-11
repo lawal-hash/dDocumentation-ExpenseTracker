@@ -11,6 +11,7 @@ Welcome to ExpenseTracker's documentation!
    :caption: Contents:
 
    modules
+   
 
 
 Indices and tables
