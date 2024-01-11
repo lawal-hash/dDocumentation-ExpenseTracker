@@ -25,7 +25,6 @@ extensions = [
     'sphinx.ext.viewcode',
     'sphinx.ext.napoleon',
     'sphinx.ext.doctest',
-    'sphinx_book_theme'
 ]
 
 templates_path = ['_templates']
