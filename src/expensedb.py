@@ -1,22 +1,22 @@
-import logging
 from typing import Dict, List
 from pydantic import BaseModel, validate_call
-from .expense import Expense
+from src.expense import Expense
 
 
 class ExpenseDatabase(BaseModel):
     """
     Manages a collection of Expense objects
     """
-    expenses : List = []
-    
+
+    expenses: List = []
+
     def __repr__(self) -> str:
         return "ExpenseDatabase()"
 
     def __len__(self) -> int:
         return len(self.expenses)
 
-    @validate_call
+    @validate_call(validate_return=True)
     def add_expense(self, expense: Expense) -> None:
         """Adds an expense to the database.
 
@@ -26,7 +26,7 @@ class ExpenseDatabase(BaseModel):
         self.expenses.append(expense)
         print(f"{expense} successfully added to ExpenseDatabase")
 
-    @validate_call
+    @validate_call(validate_return=True)
     def remove_expense(self, expense_id: str) -> None:
         """Removes an expense from the database.
 
@@ -46,11 +46,15 @@ class ExpenseDatabase(BaseModel):
         Args:
             expense_id (str): A unique identifier for an expense.
         """
-        for expense in self.expenses:
-            if expense.id == expense_id:
-                return expense
 
-    @validate_call
+        def get_id():
+            for expense in self.expenses:
+                if expense.id == expense_id:
+                    return expense
+
+        return get_id()
+
+    @validate_call(validate_return=True)
     def get_expense_by_title(self, expense_title: str) -> List:
         """Retrieves a list of expenses from the database by their title.
 
@@ -60,11 +64,9 @@ class ExpenseDatabase(BaseModel):
         Returns:
             List: A list of expenses with the given title.
         """
-        return [
-                expense for expense in self.expenses if expense.title == expense_title
-            ]
+        return [expense for expense in self.expenses if expense.title == expense_title]
 
-
+    @validate_call(validate_return=True)
     def to_dict(self) -> List[Dict]:
         """
         Returns a list of dictionaries representing the expenses in the database.
