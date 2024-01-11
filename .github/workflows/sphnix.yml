@@ -6,9 +6,9 @@ name: Build-sphinx-docs
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [main]
+    branches: [main,dev]
   pull_request:
-    branches: [main]
+    branches: [main, dev]
   schedule:
     - cron: "* * 1 * *" 
   # Allows you to run this workflow manually from the Actions tab
@@ -40,7 +40,8 @@ jobs:
       - name: Build HTML
         run: |
           cd doc/
-          
+          make clean
+          make html
       - name: Run ghp-import
         run: |
           ghp-import -n -p -f doc/_build/html/
