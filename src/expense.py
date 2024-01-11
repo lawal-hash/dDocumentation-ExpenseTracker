@@ -1,7 +1,8 @@
 from typing import Dict, Union
 from uuid import uuid4
 from datetime import datetime
-from pydantic import BaseModel, UUID4, validate_call
+from typing_extensions import Annotated
+from pydantic import BaseModel, UUID4, Field, validate_call
 
 
 class Expense(BaseModel):
@@ -11,9 +12,9 @@ class Expense(BaseModel):
 
     title: str
     amount: float
-    id: UUID4 = uuid4()
-    created_at: datetime = datetime.utcnow()
-    updated_at: datetime = created_at
+    id: Annotated[UUID4, Field(default_factory=lambda: uuid4().hex, frozen=True)]
+    created_at: Annotated[datetime, Field(default= datetime.utcnow(), frozen=True)]
+    updated_at: Annotated[datetime, Field(default=datetime.utcnow())]
 
     def __repr__(self) -> str:
         return f"Expense(title={self.title}, amount={self.amount})"
@@ -22,14 +23,16 @@ class Expense(BaseModel):
     def update(
         self, title: Union[str, None] = None, amount: Union[float, None] = None
     ) -> None:
-        """update the title and/or amount of the expense.
+        """
+        update the title and/or amount of the expense.
         The updated_at attribute should be automatically set
         to the current UTC timestamp whenever an update occurs.
-
+        
         Args:
-            title (str, optional): the title of the expense. Defaults to None.
-            amount (float, optional): the amount of the expense. Defaults to None.
+            title (Union[str, None], optional): the title of the expense. Defaults to None.
+            amount (Union[float, None], optional): the amount of the expense. Defaults to None.
         """
+
         if title:
             self.title = title
             self.updated_at = datetime.utcnow()
