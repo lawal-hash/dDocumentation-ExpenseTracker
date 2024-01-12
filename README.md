@@ -1,4 +1,6 @@
 # Expense Tracker
+[![Build-sphinx-docs](https://github.com/lawal-hash/documentation-ExpenseTracker/actions/workflows/sphnix.yml/badge.svg?branch=main)](https://github.com/lawal-hash/documentation-ExpenseTracker/actions/workflows/sphnix.yml) [![CodeQL](https://github.com/lawal-hash/documentation-ExpenseTracker/actions/workflows/github-code-scanning/codeql/badge.svg?branch=main)](https://github.com/lawal-hash/documentation-ExpenseTracker/actions/workflows/github-code-scanning/codeql)[![pages-build-deployment](https://github.com/lawal-hash/documentation-ExpenseTracker/actions/workflows/pages/pages-build-deployment/badge.svg?branch=gh-pages)](https://github.com/lawal-hash/documentation-ExpenseTracker/actions/workflows/pages/pages-build-deployment)
+
 
 ExpenseTracker, a Python application, assesses and highlights object-oriented programming (OOP) skills in financial expense management. Comprising two pivotal classes, Expense and ExpenseDB, it models individual expenses with attributes like a unique identifier, title, amount, and timestamps in Coordinated Universal Time (UTC). The Expense class features methods for  updating details, and efficient conversion to a dictionary. As a manager for Expense objects, the ExpenseDB class facilitates addition, removal, retrieval of expenses.
 
